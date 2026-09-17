@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineStream Ultra | Watch & Download Trending USA Movies</title>
+    
+    <!-- Google Fonts & Font Awesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            red: '#E50914',
+                            redGlow: '#ff334b',
+                            dark: '#0a0a0f',
+                            card: '#12131c',
+                            cyan: '#00f0ff',
+                        }
+                    },
+                    animation: {
+                        'pulse-glow': 'pulseGlow 2.5s infinite ease-in-out',
+                        'float': 'float 4s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 15px rgba(229, 9, 20, 0.4), 0 0 30px rgba(229, 9, 20, 0.15)' },
+                            '50%': { boxShadow: '0 0 25px rgba(229, 9, 20, 0.8), 0 0 50px rgba(229, 9, 20, 0.4)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-6px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #07070b;
+            color: #e2e8f0;
+            overflow-x: hidden;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        
+        .hero-bg-glow {
+            background: radial-gradient(circle at 50% -10%, rgba(229, 9, 20, 0.25) 0%, rgba(0, 240, 255, 0.08) 45%, transparent 70%);
+        }
+        
+        .movie-card {
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            background: linear-gradient(135deg, rgba(25, 27, 40, 0.8) 0%, rgba(14, 15, 24, 0.95) 100%);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+        }
+        
+        .movie-card:hover {
+            transform: translateY(-4px) scale(1.01);
+            border-color: rgba(229, 9, 20, 0.45);
+            box-shadow: 0 12px 35px -10px rgba(229, 9, 20, 0.35), 0 0 20px -5px rgba(0, 240, 255, 0.15);
+        }
+        
+        .btn-cinema {
+            background: linear-gradient(135deg, #e50914 0%, #b80610 100%);
+            box-shadow: 0 4px 18px rgba(229, 9, 20, 0.45);
+            transition: all 0.25s ease;
+        }
+        
+        .btn-cinema:hover {
+            background: linear-gradient(135deg, #ff1e2b 0%, #d80613 100%);
+            box-shadow: 0 6px 25px rgba(229, 9, 20, 0.7);
+            transform: translateY(-2px);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #25283b;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col relative hero-bg-glow selection:bg-brand-red selection:text-white">
+
+    <header class="sticky top-0 z-40 backdrop-blur-md bg-black/60 border-b border-white/5">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-2 sm:gap-3 group">
+                <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-brand-red to-red-500 flex items-center justify-center text-white shadow-lg shadow-brand-red/30 group-hover:scale-105 transition">
+                    <i class="fa-solid fa-play text-sm sm:text-base ml-0.5"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-display font-black text-xl sm:text-2xl tracking-wider text-white">
+                        CINE<span class="text-brand-red">STREAM</span>
+                    </span>
+                    <span class="text-[9px] uppercase tracking-widest text-gray-400 font-semibold -mt-1">USA Movies Hub</span>
+                </div>
+            </a>
+
+            <!-- Right Controls -->
+            <div class="flex items-center gap-2 sm:gap-4">
+                <button onclick="openConfigModal()" class="px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-gray-200 hover:text-white transition flex items-center gap-2">
+                    <i class="fa-solid fa-sliders text-brand-cyan"></i>
+                    <span class="hidden sm:inline">Edit Links</span>
+                </button>
+                <div class="flex items-center gap-1.5 bg-brand-red/10 border border-brand-red/30 text-brand-red px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full text-xs font-semibold">
+                    <span class="w-2 h-2 rounded-full bg-brand-red animate-ping"></span>
+                    <span>HD DIRECT</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12 w-full">
+        <!-- Hero Header -->
+        <div class="text-center space-y-4 mb-8 sm:mb-12">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-gray-300 backdrop-blur-sm">
+                <i class="fa-solid fa-fire text-amber-500"></i>
+                <span>Fast Direct Servers • 4K UHD & 1080p BluRay</span>
+            </div>
+            <h1 class="font-display text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-tight leading-tight">
+                Watch & Download <br class="hidden sm:block"/>
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-brand-red">Top USA Trending Movies</span>
+            </h1>
+            <p class="text-gray-400 text-sm sm:text-base max-w-xl mx-auto">
+                High-speed instant mirror links without annoying popups. Click any movie below to start streaming or download directly.
+            </p>
+            
+            <!-- Quick Filter / Search Bar -->
+            <div class="pt-2 max-w-md mx-auto">
+                <div class="relative">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                    <input 
+                        type="text" 
+                        id="movieSearchInput" 
+                        onkeyup="filterMovies()"
+                        placeholder="Search movie title (e.g. 360, Oppenheimer)..." 
+                        class="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red transition"
+                    >
+                </div>
+            </div>
+        </div>
+
+        <div class="space-y-3.5 sm:space-y-4" id="moviesContainer">
+            <!-- Movies will be rendered by JavaScript dynamically to support custom links -->
+        </div>
+
+        <!-- Safe Server Info Card -->
+        <div class="mt-10 p-5 rounded-2xl bg-white/[0.02] border border-white/5 text-center text-xs text-gray-400 max-w-2xl mx-auto space-y-2">
+            <div class="flex items-center justify-center gap-4 text-gray-300 font-medium">
+                <span class="flex items-center gap-1"><i class="fa-solid fa-shield-halved text-emerald-400"></i> Virus Free</span>
+                <span class="flex items-center gap-1"><i class="fa-solid fa-bolt text-amber-400"></i> Max Speed</span>
+                <span class="flex items-center gap-1"><i class="fa-solid fa-mobile-screen text-cyan-400"></i> Mobile Ready</span>
+            </div>
+            <p>Links are verified every hour. If a mirror is down, automatic fallback reroutes you to the closest high-speed USA mirror node.</p>
+        </div>
+    </main>
+
+    <div id="configModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-[#13141f] border border-white/10 rounded-2xl w-full max-w-2xl max-h-[85vh] flex flex-col shadow-2xl">
+            <!-- Modal Header -->
+            <div class="p-5 border-b border-white/10 flex items-center justify-between">
+                <div>
+                    <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-link text-brand-red"></i> Movie Download Link Manager
+                    </h3>
+                    <p class="text-xs text-gray-400 mt-0.5">Edit URLs for each button. They save automatically in your browser.</p>
+                </div>
+                <button onclick="closeConfigModal()" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white flex items-center justify-center transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body (Inputs) -->
+            <div class="p-5 overflow-y-auto space-y-3.5 custom-scrollbar flex-1" id="configInputsContainer">
+                <!-- Inputs injected by JS -->
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-4 border-t border-white/10 bg-black/20 flex items-center justify-between">
+                <button onclick="resetDefaultLinks()" class="text-xs text-gray-400 hover:text-brand-red underline transition">
+                    Restore Defaults
+                </button>
+                <button onclick="closeConfigModal()" class="px-5 py-2 rounded-xl bg-brand-red hover:bg-red-600 text-white text-sm font-semibold transition">
+                    Done & Apply
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 hidden items-center gap-3 bg-white text-black px-4 py-3 rounded-xl shadow-2xl font-medium text-sm transition-all duration-300">
+        <i class="fa-solid fa-circle-check text-emerald-600"></i>
+        <span id="toastMsg">Redirecting to download mirror...</span>
+    </div>
+
+    <footer class="mt-auto border-t border-white/5 py-8 text-center text-xs text-gray-500">
+        <p>© 2026 CineStream USA. For promotional and entertainment landing use. Fully compatible with GitHub Pages.</p>
+    </footer>
+
+    <script>
+        // Initial Movie List with defaults
+        const defaultMovies = [
+            {
+                id: "m1",
+                title: "365 Days / 360 Movie",
+                badge: "TRENDING #1",
+                quality: "4K UHD",
+                year: "2024",
+                genre: "Romance / Thriller",
+                actionText: "Watch Now & Download",
+                icon: "fa-fire",
+                url: "https://example.com/download/360-movie"
+            },
+            {
+                id: "m2",
+                title: "Oppenheimer",
+                badge: "OSCAR WINNER",
+                quality: "IMAX 4K",
+                year: "2023",
+                genre: "Biography / Drama",
+                actionText: "Watch / Download (4K)",
+                icon: "fa-atom",
+                url: "https://example.com/download/oppenheimer"
+            },
+            {
+                id: "m3",
+                title: "Dune: Part Two",
+                badge: "TOP RATED",
+                quality: "1080p • 4K",
+                year: "2024",
+                genre: "Sci-Fi / Adventure",
+                actionText: "Download Full Movie",
+                icon: "fa-earth-africa",
+                url: "https://example.com/download/dune-2"
+            },
+            {
+                id: "m4",
+                title: "John Wick: Chapter 4",
+                badge: "ACTION HIT",
+                quality: "HDR 1080p",
+                year: "2023",
+                genre: "Action / Crime",
+                actionText: "Watch Now / Direct Link",
+                icon: "fa-gun",
+                url: "https://example.com/download/john-wick-4"
+            },
+            {
+                id: "m5",
+                title: "Top Gun: Maverick",
+                badge: "BLOCKBUSTER",
+                quality: "BluRay 1080p",
+                year: "2022",
+                genre: "Action / Aerial",
+                actionText: "Instant Download",
+                icon: "fa-plane-up",
+                url: "https://example.com/download/top-gun-maverick"
+            },
+            {
+                id: "m6",
+                title: "Avatar: The Way of Water",
+                badge: "3D / 4K",
+                quality: "Dolby Vision",
+                year: "2022",
+                genre: "Sci-Fi / Fantasy",
+                actionText: "Watch / Fast Server",
+                icon: "fa-water",
+                url: "https://example.com/download/avatar-2"
+            },
+            {
+                id: "m7",
+                title: "Barbie (USA Edition)",
+                badge: "GLOBAL HIT",
+                quality: "1080p WEB-DL",
+                year: "2023",
+                genre: "Comedy / Adventure",
+                actionText: "Download / Stream HD",
+                icon: "fa-star",
+                url: "https://example.com/download/barbie"
+            }
+        ];
+
+        // Retrieve stored data or fallback
+        function getMovies() {
+            const saved = localStorage.getItem('cinestream_movies');
+            if (saved) {
+                try {
+                    return JSON.parse(saved);
+                } catch(e) {
+                    return defaultMovies;
+                }
+            }
+            return defaultMovies;
+        }
+
+        function saveMovies(movies) {
+            localStorage.setItem('cinestream_movies', JSON.stringify(movies));
+        }
+
+        // Render movie action cards
+        function renderMovies(filteredList = null) {
+            const container = document.getElementById('moviesContainer');
+            const list = filteredList || getMovies();
+
+            if (list.length === 0) {
+                container.innerHTML = `
+                    <div class="py-12 text-center text-gray-400">
+                        <i class="fa-solid fa-video-slash text-4xl mb-3 opacity-40"></i>
+                        <p class="text-sm">No movie matches your search query.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = list.map((movie, index) => `
+                <div class="movie-card rounded-2xl p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <!-- Left: Movie info -->
+                    <div class="flex items-start sm:items-center gap-3.5 sm:gap-4">
+                        <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-tr from-white/10 to-white/5 border border-white/10 flex items-center justify-center shrink-0 text-brand-red text-xl sm:text-2xl">
+                            <i class="fa-solid ${movie.icon}"></i>
+                        </div>
+                        <div class="space-y-1">
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="text-[10px] sm:text-xs font-bold px-2 py-0.5 rounded-full bg-brand-red/20 border border-brand-red/40 text-red-400 tracking-wider">
+                                    ${movie.badge}
+                                </span>
+                                <span class="text-[10px] sm:text-xs font-semibold px-2 py-0.5 rounded-md bg-white/5 text-gray-300 border border-white/10">
+                                    ${movie.quality}
+                                </span>
+                                <span class="text-xs text-gray-400">${movie.year}</span>
+                            </div>
+                            <h2 class="text-base sm:text-lg font-bold text-white tracking-wide">${movie.title}</h2>
+                            <p class="text-xs text-gray-400">${movie.genre}</p>
+                        </div>
+                    </div>
+
+                    <!-- Right: Attractive Glowing Action Button -->
+                    <div class="w-full md:w-auto shrink-0">
+                        <button 
+                            onclick="handleMovieClick('${movie.id}', '${movie.title.replace(/'/g, "\\'")}', '${movie.url}')"
+                            class="btn-cinema w-full md:w-auto px-6 py-3.5 rounded-xl text-white font-bold text-sm tracking-wider uppercase flex items-center justify-center gap-2.5 group active:scale-95 cursor-pointer"
+                        >
+                            <span>${movie.actionText}</span>
+                            <i class="fa-solid fa-circle-arrow-down group-hover:translate-y-0.5 transition-transform"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Handle button click & instant redirection
+        function handleMovieClick(id, title, url) {
+            showToast(`Opening download server for: ${title}`);
+            setTimeout(() => {
+                if (url && url !== '#' && !url.includes('example.com')) {
+                    window.location.href = url;
+                } else {
+                    // Friendly prompt if URL is not configured yet
+                    showToast(`Redirecting to download mirror...`);
+                    window.open(url || '#', '_blank');
+                }
+            }, 600);
+        }
+
+        // Live Search Filter
+        function filterMovies() {
+            const query = document.getElementById('movieSearchInput').value.toLowerCase().trim();
+            const all = getMovies();
+            if (!query) {
+                renderMovies();
+                return;
+            }
+            const filtered = all.filter(m => 
+                m.title.toLowerCase().includes(query) || 
+                m.genre.toLowerCase().includes(query)
+            );
+            renderMovies(filtered);
+        }
+
+        // Modal Link Editor logic
+        function openConfigModal() {
+            const container = document.getElementById('configInputsContainer');
+            const movies = getMovies();
+
+            container.innerHTML = movies.map((m, idx) => `
+                <div class="p-3.5 rounded-xl bg-white/[0.03] border border-white/5 space-y-1.5">
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="font-bold text-white">${m.title}</span>
+                        <span class="text-gray-400">${m.quality}</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input 
+                            type="url" 
+                            id="urlInput_${m.id}" 
+                            value="${m.url}" 
+                            placeholder="Paste your download link here (e.g. https://...)" 
+                            class="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-brand-cyan placeholder-gray-600 focus:outline-none focus:border-brand-red transition font-mono"
+                            onchange="updateSingleUrl('${m.id}', this.value)"
+                        >
+                    </div>
+                </div>
+            `).join('');
+
+            const modal = document.getElementById('configModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeConfigModal() {
+            const modal = document.getElementById('configModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            renderMovies();
+        }
+
+        function updateSingleUrl(id, newUrl) {
+            const movies = getMovies();
+            const target = movies.find(m => m.id === id);
+            if (target) {
+                target.url = newUrl.trim();
+                saveMovies(movies);
+                showToast("Download URL saved!");
+            }
+        }
+
+        function resetDefaultLinks() {
+            saveMovies(defaultMovies);
+            openConfigModal();
+            showToast("Restored all original default URLs.");
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const msgSpan = document.getElementById('toastMsg');
+            msgSpan.textContent = message;
+            toast.classList.remove('hidden');
+            toast.classList.add('flex');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+                toast.classList.remove('flex');
+            }, 3000);
+        }
+
+        // Initialize on load
+        window.onload = function() {
+            renderMovies();
+        };
+    </script>
+</body>
+</html>
