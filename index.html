@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CineStream Ultra | Watch & Download Trending USA Movies</title>
     
-    <!-- Google Fonts & Font Awesome -->
+    <!-- Google Fonts & Font Awesome Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -24,25 +24,11 @@
                     },
                     colors: {
                         brand: {
-                            red: '#E50914',
-                            redGlow: '#ff334b',
-                            dark: '#0a0a0f',
-                            card: '#12131c',
+                            crimson: '#e50914',
+                            redGlow: '#ff1e27',
+                            dark: '#07080d',
+                            cardBg: '#0f111a',
                             cyan: '#00f0ff',
-                        }
-                    },
-                    animation: {
-                        'pulse-glow': 'pulseGlow 2.5s infinite ease-in-out',
-                        'float': 'float 4s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        pulseGlow: {
-                            '0%, 100%': { boxShadow: '0 0 15px rgba(229, 9, 20, 0.4), 0 0 30px rgba(229, 9, 20, 0.15)' },
-                            '50%': { boxShadow: '0 0 25px rgba(229, 9, 20, 0.8), 0 0 50px rgba(229, 9, 20, 0.4)' }
-                        },
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0px)' },
-                            '50%': { transform: 'translateY(-6px)' }
                         }
                     }
                 }
@@ -52,135 +38,200 @@
     
     <style>
         body {
-            background-color: #07070b;
-            color: #e2e8f0;
+            background-color: #06070b;
+            color: #f1f5f9;
             overflow-x: hidden;
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
-        
-        .hero-bg-glow {
-            background: radial-gradient(circle at 50% -10%, rgba(229, 9, 20, 0.25) 0%, rgba(0, 240, 255, 0.08) 45%, transparent 70%);
-        }
-        
-        .movie-card {
-            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-            background: linear-gradient(135deg, rgba(25, 27, 40, 0.8) 0%, rgba(14, 15, 24, 0.95) 100%);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.07);
-        }
-        
-        .movie-card:hover {
-            transform: translateY(-4px) scale(1.01);
-            border-color: rgba(229, 9, 20, 0.45);
-            box-shadow: 0 12px 35px -10px rgba(229, 9, 20, 0.35), 0 0 20px -5px rgba(0, 240, 255, 0.15);
-        }
-        
-        .btn-cinema {
-            background: linear-gradient(135deg, #e50914 0%, #b80610 100%);
-            box-shadow: 0 4px 18px rgba(229, 9, 20, 0.45);
-            transition: all 0.25s ease;
-        }
-        
-        .btn-cinema:hover {
-            background: linear-gradient(135deg, #ff1e2b 0%, #d80613 100%);
-            box-shadow: 0 6px 25px rgba(229, 9, 20, 0.7);
-            transform: translateY(-2px);
+
+        /* Ambient Cinema Glow Background */
+        .ambient-glow {
+            background: 
+                radial-gradient(ellipse 80% 50% at 50% -15%, rgba(229, 9, 20, 0.3) 0%, transparent 65%),
+                radial-gradient(circle at 90% 40%, rgba(0, 240, 255, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 10% 80%, rgba(229, 9, 20, 0.08) 0%, transparent 45%);
         }
 
+        /* Movie Row Card */
+        .movie-row-card {
+            background: linear-gradient(135deg, rgba(20, 22, 34, 0.85) 0%, rgba(11, 13, 21, 0.95) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .movie-row-card:hover {
+            transform: translateY(-3px) scale(1.008);
+            border-color: rgba(229, 9, 20, 0.5);
+            box-shadow: 0 16px 40px -12px rgba(229, 9, 20, 0.35), 0 0 25px -5px rgba(0, 0, 0, 0.8);
+        }
+
+        /* High CTR Pop-up Pulsing 3D CTA Button */
+        .btn-cta-pop {
+            position: relative;
+            background: linear-gradient(135deg, #ff1a24 0%, #e50914 45%, #b3040e 100%);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 3px solid #750007;
+            box-shadow: 0 0 20px rgba(229, 9, 20, 0.65), 0 8px 25px rgba(229, 9, 20, 0.45);
+            animation: pulseCta 2.2s infinite ease-in-out;
+            transition: all 0.2s ease-in-out;
+            overflow: hidden;
+        }
+
+        /* Glossy reflective shine sweeping over button */
+        .btn-cta-pop::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 40%;
+            height: 200%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.45) 50%, rgba(255,255,255,0) 100%);
+            transform: rotate(25deg);
+            animation: glossSwipe 3.5s infinite linear;
+        }
+
+        .btn-cta-pop:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 0 35px rgba(255, 30, 39, 0.95), 0 12px 30px rgba(229, 9, 20, 0.7);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .btn-cta-pop:active {
+            transform: translateY(2px) scale(0.98);
+            border-bottom-width: 1px;
+        }
+
+        @keyframes pulseCta {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(229, 9, 20, 0.6), 0 6px 18px rgba(0, 0, 0, 0.5);
+            }
+            50% {
+                transform: scale(1.03);
+                box-shadow: 0 0 32px rgba(255, 30, 39, 0.9), 0 10px 30px rgba(229, 9, 20, 0.7);
+            }
+        }
+
+        @keyframes glossSwipe {
+            0% { left: -70%; }
+            20% { left: 140%; }
+            100% { left: 140%; }
+        }
+
+        /* Poster Image Vignette & Glow */
+        .poster-container {
+            box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.8), 0 0 12px rgba(229, 9, 20, 0.25);
+        }
+
+        .poster-container:hover .poster-play-overlay {
+            opacity: 1;
+        }
+
+        /* Custom Scrollbar */
         .custom-scrollbar::-webkit-scrollbar {
             width: 6px;
         }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+        }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #25283b;
+            background: #232738;
             border-radius: 4px;
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col relative hero-bg-glow selection:bg-brand-red selection:text-white">
+<body class="min-h-screen flex flex-col relative ambient-glow selection:bg-brand-crimson selection:text-white">
 
-    <header class="sticky top-0 z-40 backdrop-blur-md bg-black/60 border-b border-white/5">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
+    <!-- Top Sticky Header -->
+    <header class="sticky top-0 z-40 backdrop-blur-xl bg-black/75 border-b border-white/10 shadow-2xl">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
             <!-- Brand Logo -->
-            <a href="#" class="flex items-center gap-2 sm:gap-3 group">
-                <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-brand-red to-red-500 flex items-center justify-center text-white shadow-lg shadow-brand-red/30 group-hover:scale-105 transition">
-                    <i class="fa-solid fa-play text-sm sm:text-base ml-0.5"></i>
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-brand-crimson to-red-500 flex items-center justify-center text-white shadow-lg shadow-brand-crimson/50 group-hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-play text-base ml-0.5"></i>
                 </div>
                 <div class="flex flex-col">
-                    <span class="font-display font-black text-xl sm:text-2xl tracking-wider text-white">
-                        CINE<span class="text-brand-red">STREAM</span>
+                    <span class="font-display font-black text-xl sm:text-2xl tracking-wider text-white flex items-center gap-1.5">
+                        CINE<span class="text-brand-crimson drop-shadow-[0_0_12px_rgba(229,9,20,0.8)]">STREAM</span>
                     </span>
-                    <span class="text-[9px] uppercase tracking-widest text-gray-400 font-semibold -mt-1">USA Movies Hub</span>
+                    <span class="text-[9px] uppercase tracking-widest text-gray-400 font-bold -mt-1">Ultra HD USA Network</span>
                 </div>
             </a>
 
             <!-- Right Controls -->
-            <div class="flex items-center gap-2 sm:gap-4">
-                <button onclick="openConfigModal()" class="px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-gray-200 hover:text-white transition flex items-center gap-2">
+            <div class="flex items-center gap-2.5 sm:gap-4">
+                <button onclick="openConfigModal()" class="px-3.5 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold rounded-xl bg-white/5 hover:bg-white/10 border border-white/15 text-gray-200 hover:text-white transition flex items-center gap-2 shadow-inner">
                     <i class="fa-solid fa-sliders text-brand-cyan"></i>
-                    <span class="hidden sm:inline">Edit Links</span>
+                    <span>Edit Links</span>
                 </button>
-                <div class="flex items-center gap-1.5 bg-brand-red/10 border border-brand-red/30 text-brand-red px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full text-xs font-semibold">
-                    <span class="w-2 h-2 rounded-full bg-brand-red animate-ping"></span>
-                    <span>HD DIRECT</span>
+                <div class="hidden xs:flex items-center gap-1.5 bg-brand-crimson/15 border border-brand-crimson/40 text-red-400 px-3 py-1.5 rounded-full text-xs font-bold tracking-wide shadow-[0_0_15px_rgba(229,9,20,0.3)]">
+                    <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+                    <span>100% DIRECT FAST CDN</span>
                 </div>
             </div>
         </div>
     </header>
 
-    <main class="flex-1 max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12 w-full">
+    <main class="flex-1 max-w-4xl mx-auto px-4 sm:px-6 py-7 sm:py-10 w-full">
         <!-- Hero Header -->
-        <div class="text-center space-y-4 mb-8 sm:mb-12">
-            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-gray-300 backdrop-blur-sm">
-                <i class="fa-solid fa-fire text-amber-500"></i>
-                <span>Fast Direct Servers • 4K UHD & 1080p BluRay</span>
+        <div class="text-center space-y-3.5 mb-8">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-gray-300 backdrop-blur-md">
+                <i class="fa-solid fa-bolt text-amber-400"></i>
+                <span>Instant High-Speed USA Mirrors • No Sign Up Required</span>
             </div>
-            <h1 class="font-display text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-tight leading-tight">
-                Watch & Download <br class="hidden sm:block"/>
-                <span class="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-brand-red">Top USA Trending Movies</span>
-            </h1>
-            <p class="text-gray-400 text-sm sm:text-base max-w-xl mx-auto">
-                High-speed instant mirror links without annoying popups. Click any movie below to start streaming or download directly.
-            </p>
             
-            <!-- Quick Filter / Search Bar -->
+            <h1 class="font-display text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-tight leading-tight">
+                Top USA Trending <br class="hidden sm:block"/>
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-white via-red-100 to-brand-crimson drop-shadow-[0_4px_25px_rgba(229,9,20,0.5)]">
+                    Movies & Blockbusters
+                </span>
+            </h1>
+
+            <p class="text-gray-400 text-xs sm:text-sm max-w-lg mx-auto">
+                Select your movie below to trigger your direct 4K / 1080p mirror link. High-speed download starts immediately!
+            </p>
+
+            <!-- Search Bar -->
             <div class="pt-2 max-w-md mx-auto">
-                <div class="relative">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                <div class="relative group">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm group-focus-within:text-brand-crimson transition-colors"></i>
                     <input 
                         type="text" 
                         id="movieSearchInput" 
                         onkeyup="filterMovies()"
-                        placeholder="Search movie title (e.g. 360, Oppenheimer)..." 
-                        class="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red transition"
+                        placeholder="Search movie title (e.g. 360, Dune, Deadpool)..." 
+                        class="w-full bg-[#11131e]/90 border border-white/15 rounded-xl pl-11 pr-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-brand-crimson focus:ring-2 focus:ring-brand-crimson/30 transition shadow-inner"
                     >
                 </div>
             </div>
         </div>
 
-        <div class="space-y-3.5 sm:space-y-4" id="moviesContainer">
-            <!-- Movies will be rendered by JavaScript dynamically to support custom links -->
+        <div class="space-y-4" id="moviesContainer">
+            <!-- Dynamic Movie Cards with Posters & Glowing CTA Buttons will be injected here -->
         </div>
 
-        <!-- Safe Server Info Card -->
-        <div class="mt-10 p-5 rounded-2xl bg-white/[0.02] border border-white/5 text-center text-xs text-gray-400 max-w-2xl mx-auto space-y-2">
-            <div class="flex items-center justify-center gap-4 text-gray-300 font-medium">
-                <span class="flex items-center gap-1"><i class="fa-solid fa-shield-halved text-emerald-400"></i> Virus Free</span>
-                <span class="flex items-center gap-1"><i class="fa-solid fa-bolt text-amber-400"></i> Max Speed</span>
-                <span class="flex items-center gap-1"><i class="fa-solid fa-mobile-screen text-cyan-400"></i> Mobile Ready</span>
+        <!-- Trust & Speed Badges -->
+        <div class="mt-10 p-5 rounded-2xl bg-[#0e101a]/80 border border-white/5 text-center text-xs text-gray-400 max-w-2xl mx-auto space-y-2.5 backdrop-blur-md shadow-xl">
+            <div class="flex items-center justify-center gap-5 text-gray-200 font-semibold flex-wrap">
+                <span class="flex items-center gap-1.5"><i class="fa-solid fa-shield-check text-emerald-400"></i> SSL Encrypted & Verified</span>
+                <span class="flex items-center gap-1.5"><i class="fa-solid fa-gauge-high text-amber-400"></i> Max Gigabit Bandwidth</span>
+                <span class="flex items-center gap-1.5"><i class="fa-solid fa-mobile-screen-button text-brand-cyan"></i> Android & iOS Compatible</span>
             </div>
-            <p>Links are verified every hour. If a mirror is down, automatic fallback reroutes you to the closest high-speed USA mirror node.</p>
+            <p class="text-[11px] text-gray-500">Each mirror is checked every 30 minutes. Fallback servers ensure you never hit a broken link.</p>
         </div>
     </main>
 
-    <div id="configModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
-        <div class="bg-[#13141f] border border-white/10 rounded-2xl w-full max-w-2xl max-h-[85vh] flex flex-col shadow-2xl">
+    <!-- Modal for Customizing Download Links -->
+    <div id="configModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="bg-[#12141f] border border-white/15 rounded-2xl w-full max-w-2xl max-h-[88vh] flex flex-col shadow-2xl">
             <!-- Modal Header -->
             <div class="p-5 border-b border-white/10 flex items-center justify-between">
                 <div>
                     <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                        <i class="fa-solid fa-link text-brand-red"></i> Movie Download Link Manager
+                        <i class="fa-solid fa-link text-brand-crimson"></i> Movie Download Link Manager
                     </h3>
-                    <p class="text-xs text-gray-400 mt-0.5">Edit URLs for each button. They save automatically in your browser.</p>
+                    <p class="text-xs text-gray-400 mt-0.5">Enter your actual download/streaming landing URLs. They save automatically in your browser.</p>
                 </div>
                 <button onclick="closeConfigModal()" class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white flex items-center justify-center transition">
                     <i class="fa-solid fa-xmark"></i>
@@ -189,119 +240,145 @@
 
             <!-- Modal Body (Inputs) -->
             <div class="p-5 overflow-y-auto space-y-3.5 custom-scrollbar flex-1" id="configInputsContainer">
-                <!-- Inputs injected by JS -->
+                <!-- Injected by JavaScript -->
             </div>
 
             <!-- Modal Footer -->
-            <div class="p-4 border-t border-white/10 bg-black/20 flex items-center justify-between">
-                <button onclick="resetDefaultLinks()" class="text-xs text-gray-400 hover:text-brand-red underline transition">
+            <div class="p-4 border-t border-white/10 bg-black/30 flex items-center justify-between">
+                <button onclick="resetDefaultLinks()" class="text-xs text-gray-400 hover:text-brand-crimson underline transition font-medium">
                     Restore Defaults
                 </button>
-                <button onclick="closeConfigModal()" class="px-5 py-2 rounded-xl bg-brand-red hover:bg-red-600 text-white text-sm font-semibold transition">
-                    Done & Apply
+                <button onclick="closeConfigModal()" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-brand-crimson to-red-600 hover:from-red-600 hover:to-brand-crimson text-white text-xs sm:text-sm font-bold shadow-lg shadow-brand-crimson/40 transition active:scale-95">
+                    Done & Apply Links
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Notification Toast -->
-    <div id="toast" class="fixed bottom-6 right-6 z-50 hidden items-center gap-3 bg-white text-black px-4 py-3 rounded-xl shadow-2xl font-medium text-sm transition-all duration-300">
-        <i class="fa-solid fa-circle-check text-emerald-600"></i>
-        <span id="toastMsg">Redirecting to download mirror...</span>
+    <!-- Notification Toast Popup -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 hidden items-center gap-3 bg-gradient-to-r from-white to-gray-100 text-black px-5 py-3.5 rounded-2xl shadow-2xl font-bold text-sm border border-white/20 transition-all duration-300">
+        <i class="fa-solid fa-circle-check text-emerald-600 text-lg"></i>
+        <span id="toastMsg">Redirecting to high-speed mirror...</span>
     </div>
 
-    <footer class="mt-auto border-t border-white/5 py-8 text-center text-xs text-gray-500">
-        <p>© 2026 CineStream USA. For promotional and entertainment landing use. Fully compatible with GitHub Pages.</p>
+    <footer class="mt-auto border-t border-white/10 py-7 text-center text-xs text-gray-500 bg-black/40">
+        <p>© 2026 CineStream Ultra. Fast USA Mirror Hub. Optimized for Mobile, PC & GitHub Pages.</p>
     </footer>
 
     <script>
-        // Initial Movie List with defaults
+        // High quality USA Movie List with real poster thumbnails
         const defaultMovies = [
             {
                 id: "m1",
                 title: "365 Days / 360 Movie",
+                poster: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=400&q=80",
                 badge: "TRENDING #1",
                 quality: "4K UHD",
                 year: "2024",
-                genre: "Romance / Thriller",
-                actionText: "Watch Now & Download",
-                icon: "fa-fire",
-                url: "https://example.com/download/360-movie"
+                rating: "9.2",
+                genre: "Romance • Drama • Thriller",
+                actionText: "WATCH NOW & DOWNLOAD",
+                subAction: "Direct High Speed Server (4K)",
+                icon: "fa-circle-arrow-down",
+                url: "https://watchnow.site/dfDnN"
             },
             {
                 id: "m2",
                 title: "Oppenheimer",
+                poster: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&w=400&q=80",
                 badge: "OSCAR WINNER",
                 quality: "IMAX 4K",
                 year: "2023",
-                genre: "Biography / Drama",
-                actionText: "Watch / Download (4K)",
-                icon: "fa-atom",
-                url: "https://example.com/download/oppenheimer"
+                rating: "9.8",
+                genre: "Biography • Drama • History",
+                actionText: "WATCH / DOWNLOAD (4K)",
+                subAction: "Lossless Audio • HDR10+",
+                icon: "fa-bolt",
+                url: "https://watchnow.site/dfDnN"
             },
             {
                 id: "m3",
                 title: "Dune: Part Two",
+                poster: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80",
                 badge: "TOP RATED",
                 quality: "1080p • 4K",
                 year: "2024",
-                genre: "Sci-Fi / Adventure",
-                actionText: "Download Full Movie",
-                icon: "fa-earth-africa",
-                url: "https://example.com/download/dune-2"
+                rating: "9.5",
+                genre: "Sci-Fi • Adventure • Action",
+                actionText: "DOWNLOAD FULL MOVIE",
+                subAction: "Dual Audio [Eng / Hindi]",
+                icon: "fa-cloud-arrow-down",
+                url: "https://watchnow.site/dfDnN"
             },
             {
                 id: "m4",
-                title: "John Wick: Chapter 4",
-                badge: "ACTION HIT",
-                quality: "HDR 1080p",
-                year: "2023",
-                genre: "Action / Crime",
-                actionText: "Watch Now / Direct Link",
-                icon: "fa-gun",
-                url: "https://example.com/download/john-wick-4"
+                title: "Deadpool & Wolverine",
+                poster: "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=400&q=80",
+                badge: "SUPER HIT",
+                quality: "4K CAM/WEB-DL",
+                year: "2024",
+                rating: "9.4",
+                genre: "Action • Comedy • Sci-Fi",
+                actionText: "WATCH NOW (INSTANT)",
+                subAction: "Multi-Mirror Direct Link",
+                icon: "fa-play",
+                url: "https://watchnow.site/dfDnN"
             },
             {
                 id: "m5",
-                title: "Top Gun: Maverick",
-                badge: "BLOCKBUSTER",
-                quality: "BluRay 1080p",
-                year: "2022",
-                genre: "Action / Aerial",
-                actionText: "Instant Download",
-                icon: "fa-plane-up",
-                url: "https://example.com/download/top-gun-maverick"
+                title: "John Wick: Chapter 4",
+                poster: "https://images.unsplash.com/photo-1579202673506-ca3ce28943ef?auto=format&fit=crop&w=400&q=80",
+                badge: "ACTION HIT",
+                quality: "HDR 1080p",
+                year: "2023",
+                rating: "9.1",
+                genre: "Action • Crime • Neo-Noir",
+                actionText: "DOWNLOAD NOW (FAST)",
+                subAction: "Direct BluRay Rip",
+                icon: "fa-download",
+                url: "https://watchnow.site/dfDnN"
             },
             {
                 id: "m6",
-                title: "Avatar: The Way of Water",
-                badge: "3D / 4K",
-                quality: "Dolby Vision",
+                title: "Top Gun: Maverick",
+                poster: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=400&q=80",
+                badge: "BLOCKBUSTER",
+                quality: "Dolby Atmos",
                 year: "2022",
-                genre: "Sci-Fi / Fantasy",
-                actionText: "Watch / Fast Server",
-                icon: "fa-water",
-                url: "https://example.com/download/avatar-2"
+                rating: "9.3",
+                genre: "Action • Aerial Drama",
+                actionText: "WATCH & DOWNLOAD",
+                subAction: "60 FPS High Frame Rate",
+                icon: "fa-circle-play",
+                url: "https://watchnow.site/dfDnN"
             },
             {
                 id: "m7",
-                title: "Barbie (USA Edition)",
-                badge: "GLOBAL HIT",
-                quality: "1080p WEB-DL",
-                year: "2023",
-                genre: "Comedy / Adventure",
-                actionText: "Download / Stream HD",
-                icon: "fa-star",
-                url: "https://example.com/download/barbie"
+                title: "Avatar: The Way of Water",
+                poster: "https://images.unsplash.com/photo-1518709766631-a6a7f45921c3?auto=format&fit=crop&w=400&q=80",
+                badge: "3D / 4K UHD",
+                quality: "Dolby Vision",
+                year: "2022",
+                rating: "9.0",
+                genre: "Sci-Fi • Fantasy • Adventure",
+                actionText: "INSTANT DOWNLOAD",
+                subAction: "Single Click Mirror Node",
+                icon: "fa-circle-down",
+                url: "https://watchnow.site/dfDnN"
             }
         ];
 
-        // Retrieve stored data or fallback
+        /* Retrieve stored data or fallback */
         function getMovies() {
             const saved = localStorage.getItem('cinestream_movies');
             if (saved) {
                 try {
-                    return JSON.parse(saved);
+                    const parsed = JSON.parse(saved);
+                    // Ensure each movie keeps poster and thumbnail features
+                    return defaultMovies.map(def => {
+                        const match = parsed.find(p => p.id === def.id);
+                        return match ? { ...def, url: match.url } : def;
+                    });
                 } catch(e) {
                     return defaultMovies;
                 }
@@ -313,72 +390,105 @@
             localStorage.setItem('cinestream_movies', JSON.stringify(movies));
         }
 
-        // Render movie action cards
         function renderMovies(filteredList = null) {
             const container = document.getElementById('moviesContainer');
             const list = filteredList || getMovies();
 
             if (list.length === 0) {
                 container.innerHTML = `
-                    <div class="py-12 text-center text-gray-400">
-                        <i class="fa-solid fa-video-slash text-4xl mb-3 opacity-40"></i>
-                        <p class="text-sm">No movie matches your search query.</p>
+                    <div class="py-14 text-center text-gray-400 bg-white/[0.02] border border-white/5 rounded-2xl">
+                        <i class="fa-solid fa-film text-5xl mb-3 opacity-30 text-brand-crimson"></i>
+                        <p class="text-sm font-semibold">No movie found matching your search.</p>
+                        <p class="text-xs text-gray-500 mt-1">Try searching another title like "360", "Dune" or "Oppenheimer".</p>
                     </div>
                 `;
                 return;
             }
 
-            container.innerHTML = list.map((movie, index) => `
-                <div class="movie-card rounded-2xl p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    <!-- Left: Movie info -->
-                    <div class="flex items-start sm:items-center gap-3.5 sm:gap-4">
-                        <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-tr from-white/10 to-white/5 border border-white/10 flex items-center justify-center shrink-0 text-brand-red text-xl sm:text-2xl">
-                            <i class="fa-solid ${movie.icon}"></i>
+            container.innerHTML = list.map((movie) => `
+                <div class="movie-row-card rounded-2xl p-3.5 sm:p-4 md:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    
+                    <!-- Left Side: Poster Thumbnail + Movie Information -->
+                    <div class="flex items-center gap-3.5 sm:gap-4 flex-1 min-w-0">
+                        <!-- Poster Thumbnail with Overlay -->
+                        <div class="poster-container relative w-16 h-20 sm:w-20 sm:h-24 md:w-22 md:h-28 rounded-xl overflow-hidden shrink-0 border border-white/15 bg-black/60 cursor-pointer" onclick="handleMovieClick('${movie.id}', '${movie.title.replace(/'/g, "\\'")}', '${movie.url}')">
+                            <img 
+                                src="${movie.poster}" 
+                                alt="${movie.title}" 
+                                class="w-full h-full object-cover transform hover:scale-110 transition duration-500"
+                                loading="lazy"
+                                onerror="this.onerror=null; this.src='https://placehold.co/200x300/151726/ff1e27?text=MOVIE';"
+                            />
+                            <!-- Play Button Hover Overlay -->
+                            <div class="poster-play-overlay absolute inset-0 bg-black/50 backdrop-blur-[2px] opacity-0 transition-opacity duration-300 flex items-center justify-center">
+                                <div class="w-8 h-8 rounded-full bg-brand-crimson/90 text-white flex items-center justify-center text-xs shadow-lg">
+                                    <i class="fa-solid fa-play ml-0.5"></i>
+                                </div>
+                            </div>
                         </div>
-                        <div class="space-y-1">
-                            <div class="flex flex-wrap items-center gap-2">
-                                <span class="text-[10px] sm:text-xs font-bold px-2 py-0.5 rounded-full bg-brand-red/20 border border-brand-red/40 text-red-400 tracking-wider">
+
+                        <!-- Info Metadata -->
+                        <div class="space-y-1.5 min-w-0 flex-1">
+                            <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                                <span class="text-[9px] sm:text-[10px] font-black px-2 py-0.5 rounded bg-brand-crimson text-white tracking-wider uppercase shadow-sm">
                                     ${movie.badge}
                                 </span>
-                                <span class="text-[10px] sm:text-xs font-semibold px-2 py-0.5 rounded-md bg-white/5 text-gray-300 border border-white/10">
+                                <span class="text-[10px] sm:text-xs font-semibold px-2 py-0.5 rounded bg-white/10 text-gray-200 border border-white/10">
                                     ${movie.quality}
                                 </span>
-                                <span class="text-xs text-gray-400">${movie.year}</span>
+                                <span class="text-[11px] text-amber-400 font-bold flex items-center gap-1">
+                                    <i class="fa-solid fa-star text-[10px]"></i> ${movie.rating}
+                                </span>
+                                <span class="text-[11px] text-gray-400 font-medium">(${movie.year})</span>
                             </div>
-                            <h2 class="text-base sm:text-lg font-bold text-white tracking-wide">${movie.title}</h2>
-                            <p class="text-xs text-gray-400">${movie.genre}</p>
+
+                            <h2 class="text-base sm:text-lg md:text-xl font-black text-white tracking-tight truncate leading-snug">
+                                ${movie.title}
+                            </h2>
+
+                            <div class="flex items-center gap-2 text-xs text-gray-400">
+                                <i class="fa-solid fa-clapperboard text-[11px] text-brand-crimson"></i>
+                                <span class="truncate">${movie.genre}</span>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Right: Attractive Glowing Action Button -->
-                    <div class="w-full md:w-auto shrink-0">
+                    <!-- Right Side: Pulsing POP-UP CTA Button -->
+                    <div class="w-full md:w-auto shrink-0 pt-1 md:pt-0">
                         <button 
                             onclick="handleMovieClick('${movie.id}', '${movie.title.replace(/'/g, "\\'")}', '${movie.url}')"
-                            class="btn-cinema w-full md:w-auto px-6 py-3.5 rounded-xl text-white font-bold text-sm tracking-wider uppercase flex items-center justify-center gap-2.5 group active:scale-95 cursor-pointer"
+                            class="btn-cta-pop w-full md:w-64 px-5 py-3.5 sm:py-4 rounded-xl text-white font-extrabold text-sm sm:text-base tracking-wide flex flex-col items-center justify-center gap-0.5 cursor-pointer select-none group"
                         >
-                            <span>${movie.actionText}</span>
-                            <i class="fa-solid fa-circle-arrow-down group-hover:translate-y-0.5 transition-transform"></i>
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid ${movie.icon} text-base group-hover:scale-125 transition-transform"></i>
+                                <span>${movie.actionText}</span>
+                            </div>
+                            <span class="text-[10px] text-red-100/80 font-semibold tracking-normal flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                                ${movie.subAction}
+                            </span>
                         </button>
                     </div>
+
                 </div>
             `).join('');
         }
 
-        // Handle button click & instant redirection
         function handleMovieClick(id, title, url) {
-            showToast(`Opening download server for: ${title}`);
+            showToast(`Connecting to high-speed mirror for "${title}"...`);
+            
             setTimeout(() => {
                 if (url && url !== '#' && !url.includes('example.com')) {
                     window.location.href = url;
                 } else {
-                    // Friendly prompt if URL is not configured yet
-                    showToast(`Redirecting to download mirror...`);
+                    // Fallback demo redirect
+                    showToast(`Starting direct download stream...`);
                     window.open(url || '#', '_blank');
                 }
-            }, 600);
+            }, 650);
         }
 
-        // Live Search Filter
+        // Live Filter
         function filterMovies() {
             const query = document.getElementById('movieSearchInput').value.toLowerCase().trim();
             const all = getMovies();
@@ -388,21 +498,25 @@
             }
             const filtered = all.filter(m => 
                 m.title.toLowerCase().includes(query) || 
-                m.genre.toLowerCase().includes(query)
+                m.genre.toLowerCase().includes(query) ||
+                m.badge.toLowerCase().includes(query)
             );
             renderMovies(filtered);
         }
 
-        // Modal Link Editor logic
+        // Modal Link Editor
         function openConfigModal() {
             const container = document.getElementById('configInputsContainer');
             const movies = getMovies();
 
-            container.innerHTML = movies.map((m, idx) => `
-                <div class="p-3.5 rounded-xl bg-white/[0.03] border border-white/5 space-y-1.5">
+            container.innerHTML = movies.map((m) => `
+                <div class="p-3 sm:p-3.5 rounded-xl bg-white/[0.04] border border-white/10 space-y-2">
                     <div class="flex items-center justify-between text-xs">
-                        <span class="font-bold text-white">${m.title}</span>
-                        <span class="text-gray-400">${m.quality}</span>
+                        <span class="font-bold text-white flex items-center gap-2">
+                            <img src="${m.poster}" class="w-5 h-6 rounded object-cover" />
+                            ${m.title}
+                        </span>
+                        <span class="text-brand-cyan font-mono text-[10px] uppercase">${m.quality}</span>
                     </div>
                     <div class="flex items-center gap-2">
                         <input 
@@ -410,7 +524,7 @@
                             id="urlInput_${m.id}" 
                             value="${m.url}" 
                             placeholder="Paste your download link here (e.g. https://...)" 
-                            class="w-full bg-black/40 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-brand-cyan placeholder-gray-600 focus:outline-none focus:border-brand-red transition font-mono"
+                            class="w-full bg-black/50 border border-white/15 rounded-lg px-3 py-2 text-xs text-brand-cyan placeholder-gray-600 focus:outline-none focus:border-brand-crimson transition font-mono"
                             onchange="updateSingleUrl('${m.id}', this.value)"
                         >
                     </div>
@@ -435,14 +549,14 @@
             if (target) {
                 target.url = newUrl.trim();
                 saveMovies(movies);
-                showToast("Download URL saved!");
+                showToast("Download URL saved successfully!");
             }
         }
 
         function resetDefaultLinks() {
             saveMovies(defaultMovies);
             openConfigModal();
-            showToast("Restored all original default URLs.");
+            showToast("Restored all default URLs.");
         }
 
         function showToast(message) {
